@@ -13,9 +13,8 @@ import butterknife.ButterKnife;
 
 
 public class WelcomeActivity extends AppCompatActivity {
-    final static int SPLASH_TIME = 2800;
-    @BindView(R.id.zoomImage)
-    ImageView zoomImage;
+    final static int SPLASH_TIME = 3000;
+    @BindView(R.id.zoomImage) ImageView zoomImage;
     Animation animation;
 
     @Override

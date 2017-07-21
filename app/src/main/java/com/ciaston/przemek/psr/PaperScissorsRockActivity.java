@@ -18,18 +18,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PaperScissorsRockActivity extends AppCompatActivity {
-    @BindView(R.id.tv_computerScore)
-    TextView tv_computerScore;
+    @BindView(R.id.tv_computerScore) TextView tv_computerScore;
     @BindView(R.id.tv_playerScore) TextView tv_playerScore;
     @BindView(R.id.tv_draw) TextView tv_draw;
 
-    @BindView(R.id.paperButton)
-    Button paper;
+    @BindView(R.id.paperButton) Button paper;
     @BindView(R.id.scissorsButton) Button scissors;
     @BindView(R.id.rockButton) Button rock;
 
-    @BindView(R.id.iv_playerChoice)
-    ImageView iv_playerChoice;
+    @BindView(R.id.iv_playerChoice) ImageView iv_playerChoice;
     @BindView(R.id.iv_computerChoice) ImageView iv_computerChoice;
     @BindView(R.id.relativeLayout) RelativeLayout relativeLayout;
 
