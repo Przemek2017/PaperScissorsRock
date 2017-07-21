@@ -43,6 +43,8 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paper_scissors_rock);
         ButterKnife.bind(this);
 
+        randomBackground();
+
         paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +85,7 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
             if (playerScore > computerScore) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(PaperScissorsRockActivity.this);
-                alertDialog.setMessage("You WIN " + playerScore + "-" + computerScore +" ! Rematch ?")
+                alertDialog.setMessage("You WIN " + playerScore + "-" + computerScore +"! Rematch ?")
                         .setTitle("Game over")
                         .setCancelable(false)
                         .setIcon(R.drawable.psr_icon)
@@ -98,10 +100,11 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                             }
                         });
                 AlertDialog alert = alertDialog.create();
+                alert.getWindow().setBackgroundDrawableResource(R.color.dialogWin);
                 alert.show();
             } else {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(PaperScissorsRockActivity.this);
-                alertDialog.setMessage("Android WIN " + computerScore + "-" + playerScore +" ! Rematch ?")
+                alertDialog.setMessage("Android WIN " + computerScore + "-" + playerScore +"! Rematch ?")
                         .setTitle("Game over")
                         .setIcon(R.drawable.psr_icon)
                         .setCancelable(false)
@@ -116,6 +119,7 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                             }
                         });
                 AlertDialog alert = alertDialog.create();
+                alert.getWindow().setBackgroundDrawableResource(R.color.dialogLoose);
                 alert.show();
             }
         }
@@ -129,8 +133,6 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         computerScore = 0;
         draw = 0;
         undo = false;
-
-//        randomBackground();
     }
 
     private String game(String player_choise){
@@ -221,8 +223,9 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                     undo = true;
                     if(player == DRAW){
                         MyMethod.ShowSnackbar(relativeLayout, "Straciłeś jedyną możliwość cofnięcia ruchu");
-                    } else if (player == COMPUTER_WIN){
-                        MyMethod.ShowSnackbar(relativeLayout, "Odjęto punkt Androidowia");
+                    } else
+                        if (player == COMPUTER_WIN){
+                        MyMethod.ShowSnackbar(relativeLayout, "Odjęto punkt Androidowi");
                         computerScore--;
                     } else if (player == PLAYER_WIN){
                         MyMethod.ShowSnackbar(relativeLayout, "Odjęto Twój punkt");
