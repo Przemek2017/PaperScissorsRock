@@ -6,8 +6,8 @@
     <color name="colorPrimary">#1d0001</color>
     <color name="colorAccent">#020e1b</color>
     <color name="colorPrimaryDark">#7640ff</color>
-    <color name="dialogLoose">#f99991</color>
-    <color name="dialogWin">#c0f49b</color>
+    <color name="dialogLoose">#ffb8b3</color>
+    <color name="dialogWin">#d6ffb8</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

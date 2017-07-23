@@ -43,7 +43,7 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paper_scissors_rock);
         ButterKnife.bind(this);
 
-        randomBackground();
+//        randomBackground();
 
         paper.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,58 +135,58 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         undo = false;
     }
 
-    private String game(String player_choise){
-        String computer_choise = "";
+    private String game(String playerChoise){
+        String computerChoise = "";
         String result;
         Random random = new Random();
         int computerRandChoise = random.nextInt(3) + 1;
         if (computerRandChoise == 1){
-            computer_choise = "paper";
+            computerChoise = "paper";
         } else if (computerRandChoise == 2){
-            computer_choise = "scissors";
+            computerChoise = "scissors";
         } else if (computerRandChoise == 3){
-            computer_choise = "rock";
+            computerChoise = "rock";
         }
 
-        if (computer_choise == "paper"){
+        if (computerChoise == "paper"){
             iv_computerChoice.setImageResource(R.drawable.paper);
-        } else if (computer_choise == "scissors"){
+        } else if (computerChoise == "scissors"){
             iv_computerChoice.setImageResource(R.drawable.scissors);
-        } else if (computer_choise == "rock"){
+        } else if (computerChoise == "rock"){
             iv_computerChoice.setImageResource(R.drawable.rock);
         }
 
-        if (computer_choise == player_choise){
+        if (computerChoise == playerChoise){
             draw++;
             result = "Draw... Nobady won";
             showSnackbar(result, Color.rgb(0, 0, 0), DRAW );
             return "Draw... Nobady won";
-        } else if (computer_choise == "scissors" && player_choise == "paper"){
+        } else if (computerChoise == "scissors" && playerChoise == "paper"){
             computerScore++;
             result = "Scissors cut paper... computer win!";
             showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN );
             return "";
-        } else if (computer_choise == "paper" && player_choise == "rock"){
+        } else if (computerChoise == "paper" && playerChoise == "rock"){
             computerScore++;
             result = "Paper covers the rock... computer win!";
             showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN );
             return "";
-        } else if (computer_choise == "rock" && player_choise == "scissors"){
+        } else if (computerChoise == "rock" && playerChoise == "scissors"){
             computerScore++;
             result = "Rock destroys the scissors... computer win!";
             showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN );
             return "";
-        } else if (computer_choise == "paper" && player_choise == "scissors"){
+        } else if (computerChoise == "paper" && playerChoise == "scissors"){
             playerScore++;
             result = "Scissors cut paper... You win!";
             showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN );
             return "";
-        } else if (computer_choise == "rock" && player_choise == "paper"){
+        } else if (computerChoise == "rock" && playerChoise == "paper"){
             playerScore++;
             result = "Paper covers the rock... You win!";
             showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN );
             return "";
-        } else if (computer_choise == "scissors" && player_choise == "rock"){
+        } else if (computerChoise == "scissors" && playerChoise == "rock"){
             playerScore++;
             result = "Rock destroys the scissors... You win!";
             showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN );
@@ -196,13 +196,15 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
     }
 
     public void randomBackground(){
-        int[] bArray = new int[]{R.drawable.bgame1,
+        int[] bArray = new int[]{
+                R.drawable.bgame1,
                 R.drawable.bgame2,
                 R.drawable.bgame3,
                 R.drawable.bgame4,
                 R.drawable.bgame5,
                 R.drawable.bgame6,
-                R.drawable.bgame7};
+                R.drawable.bgame7
+        };
 
         int arrLen = bArray.length;
         Random random = new Random();
@@ -222,7 +224,7 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     undo = true;
                     if(player == DRAW){
-                        MyMethod.ShowSnackbar(relativeLayout, "Straciłeś jedyną możliwość cofnięcia ruchu");
+                        MyMethod.ShowSnackbar(relativeLayout, "Straciłeś/aś jedyną możliwość cofnięcia punktu");
                     } else
                         if (player == COMPUTER_WIN){
                         MyMethod.ShowSnackbar(relativeLayout, "Odjęto punkt Androidowi");
