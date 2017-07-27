@@ -43,6 +43,12 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paper_scissors_rock);
         ButterKnife.bind(this);
 
+        if(savedInstanceState != null){
+            tv_draw.setText(savedInstanceState.getString(DRAW_P));
+            tv_computerScore.setText(savedInstanceState.getString(ANDROID_P));
+            tv_playerScore.setText(savedInstanceState.getString(HUMAN_P));
+        }
+
 //        randomBackground();
 
         paper.setOnClickListener(new View.OnClickListener() {
@@ -238,5 +244,18 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
             });
         }
         snackbar.show();
+    }
+    static final String DRAW_P = "draw_p";
+    static final String ANDROID_P = "android_p";
+    static final String HUMAN_P = "human_p";
+    static final String ANDROID_CHOOSE = "andorid_choose";
+    static final String HUMAN_CHOOSE = "human_choose";
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(DRAW_P, tv_draw.getText().toString());
+        outState.putString(ANDROID_P, tv_computerScore.getText().toString());
+        outState.putString(HUMAN_P, tv_playerScore.getText().toString());
     }
 }
