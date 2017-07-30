@@ -115,12 +115,21 @@
         <TextView
             android:id="@+id/textView4"
             android:text="You"
-            style="@style/TextViewStyle" />
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textSize="25dp"
+            />
 
         <TextView
             android:id="@+id/textView5"
             android:text="Android"
-            style="@style/TextViewStyle" />
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textSize="25dp" />
 
     </LinearLayout>
 
