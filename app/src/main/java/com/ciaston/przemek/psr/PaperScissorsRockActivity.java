@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +32,8 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
     @BindView(R.id.iv_computerChoice) ImageView iv_computerChoice;
     @BindView(R.id.relativeLayout) RelativeLayout relativeLayout;
 
+    @BindView(R.id.textView4) TextView textView;
+
     int playerScore, computerScore, draw = 0;
     boolean undo = false;
 
@@ -42,6 +46,8 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paper_scissors_rock);
         ButterKnife.bind(this);
+
+        setPlayerName();
 
 //        if(savedInstanceState != null){
 //            tv_draw.setText(savedInstanceState.getString(DRAW_P));
@@ -78,6 +84,36 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                 showWinner();
             }
         });
+    }
+
+    private void setPlayerName() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setLayoutParams(layoutParams);
+
+        final EditText editText = new EditText(this);
+        editText.setHint("Whats Your name?");
+        editText.setLayoutParams(layoutParams);
+
+        linearLayout.addView(editText);
+        alertDialog.setView(linearLayout);
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                textView.setText(editText.getText().toString());
+            }
+        });
+        alertDialog.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     private void scores() {
