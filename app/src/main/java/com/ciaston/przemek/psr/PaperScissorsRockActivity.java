@@ -47,8 +47,6 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paper_scissors_rock);
         ButterKnife.bind(this);
 
-        setPlayerName();
-
 //        if(savedInstanceState != null){
 //            tv_draw.setText(savedInstanceState.getString(DRAW_P));
 //            tv_computerScore.setText(savedInstanceState.getString(ANDROID_P));
@@ -84,6 +82,13 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                 showWinner();
             }
         });
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPlayerName();
+            }
+        });
     }
 
     private void setPlayerName() {
@@ -96,7 +101,7 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         linearLayout.setLayoutParams(layoutParams);
 
         final EditText editText = new EditText(this);
-        editText.setHint("Whats Your name?");
+        editText.setHint("What is your name?");
         editText.setLayoutParams(layoutParams);
 
         linearLayout.addView(editText);

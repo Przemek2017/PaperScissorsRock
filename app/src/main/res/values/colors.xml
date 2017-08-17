@@ -8,6 +8,10 @@
     <color name="colorPrimaryDark">#7640ff</color>
     <color name="dialogLoose">#ffb8b3</color>
     <color name="dialogWin">#d6ffb8</color>
+    <color name="androidColor">#3859B1</color>
+    <color name="playerColor">#399A63</color>
+    <color name="layoutColor">#A75090</color>
+    <color name="drawColor">#B1AA38</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>
