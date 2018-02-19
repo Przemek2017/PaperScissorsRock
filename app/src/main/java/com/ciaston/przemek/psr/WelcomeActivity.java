@@ -14,7 +14,8 @@ import butterknife.ButterKnife;
 
 public class WelcomeActivity extends AppCompatActivity {
     final static int SPLASH_TIME = 3000;
-    @BindView(R.id.zoomImage) ImageView zoomImage;
+    @BindView(R.id.zoomImage)
+    ImageView zoomImage;
     Animation animation;
 
     @Override
@@ -26,10 +27,10 @@ public class WelcomeActivity extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(this, R.anim.zoom);
         zoomImage.startAnimation(animation);
 
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run(){
-                Intent intent = new Intent(WelcomeActivity.this, PaperScissorsRockActivity.class);
+            public void run() {
+                Intent intent = new Intent(WelcomeActivity.this, GameActivity.class);
                 startActivity(intent);
                 finish();
             }

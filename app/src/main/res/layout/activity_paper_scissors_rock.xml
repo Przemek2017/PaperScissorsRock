@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/layoutColor"
-    tools:context="com.ciaston.przemek.psr.PaperScissorsRockActivity">
+    tools:context="com.ciaston.przemek.psr.GameActivity">
 
     <LinearLayout
         android:id="@+id/iv_layout"
@@ -113,7 +113,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/player"
             android:text="You"
             style="@style/PlayersTextView" />
 

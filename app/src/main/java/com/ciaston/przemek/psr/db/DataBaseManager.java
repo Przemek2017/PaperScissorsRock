@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.ciaston.przemek.psr.Game;
+import com.ciaston.przemek.psr.model.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,14 +65,14 @@ public class DataBaseManager extends SQLiteOpenHelper {
         return playerList;
     }
 
-    public List<Game> getArrayList() {
+    public List<Game> getArrayListGroup() {
         List<Game> gameArrayList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         String query = "SELECT " + DataBaseConst.ID + ", "
                 + DataBaseConst.PLAYER + ", "
                 + "SUM(" + DataBaseConst.WIN + ") AS " + DataBaseConst.WIN + ", "
                 + "SUM(" + DataBaseConst.LOOSE + ") AS " + DataBaseConst.LOOSE
-                + "FROM " + DataBaseConst.USER_TABLE
+                + " FROM " + DataBaseConst.USER_TABLE
                 + " GROUP BY " + DataBaseConst.PLAYER
                 + " ORDER BY " + DataBaseConst.WIN + " DESC, "
                 + DataBaseConst.LOOSE + " ASC";
@@ -97,14 +97,43 @@ public class DataBaseManager extends SQLiteOpenHelper {
         return gameArrayList;
     }
 
+//    public List<Game> getArrayList() {
+//        List<Game> gameArrayList = new ArrayList<>();
+//        SQLiteDatabase database = this.getReadableDatabase();
+//        String query = "SELECT " + DataBaseConst.ID + ", "
+//                + DataBaseConst.PLAYER + ", "
+//                + DataBaseConst.WIN + ", "
+//                + DataBaseConst.LOOSE
+//                + " FROM " + DataBaseConst.USER_TABLE
+//                + " ORDER BY " + DataBaseConst.PLAYER + " DESC";
+//        Cursor cursor = database.rawQuery(query, null);
+//        Game game;
+//
+//        while (cursor.moveToNext()) {
+//
+//            int id = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseConst.ID));
+//            String player = cursor.getString(cursor.getColumnIndexOrThrow(DataBaseConst.PLAYER));
+//            int win = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseConst.WIN));
+//            int loose = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseConst.LOOSE));
+//
+//            game = new Game();
+//            game.setId(id);
+//            game.setPlayer(player);
+//            game.setWin(win);
+//            game.setLoose(loose);
+//
+//            gameArrayList.add(game);
+//        }
+//        return gameArrayList;
+//    }
 
-    public void insertRandomGame() {
-        insertData(new Game("Przemek", 1, 0));
-        insertData(new Game("Przemek", 0, 1));
-        insertData(new Game("Julia", 1, 0));
-        insertData(new Game("Julia", 1, 0));
-        insertData(new Game("Magda", 1, 0));
-        insertData(new Game("Magda", 0, 1));
-    }
+//    public void insertRandomGame() {
+//        insertData(new Game("Przemek", 1, 0));
+//        insertData(new Game("Przemek", 0, 1));
+//        insertData(new Game("Julia", 1, 0));
+//        insertData(new Game("Julia", 1, 0));
+//        insertData(new Game("Magda", 1, 0));
+//        insertData(new Game("Magda", 0, 1));
+//    }
 
 }

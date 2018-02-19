@@ -9,6 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.ciaston.przemek.psr.adapter.GameAdapter;
 import com.ciaston.przemek.psr.db.DataBaseManager;
+import com.ciaston.przemek.psr.model.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +23,14 @@ public class RankingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Game> gameList = new ArrayList<>();
     private GameAdapter gameAdapter;
-    private DataBaseManager dataBaseManager ;
+    private DataBaseManager dataBaseManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
+        setContentView(R.layout.activity_ranking);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         dataBaseManager = new DataBaseManager(this);
-        //dataBaseManager.insertRandomGame();
 
         initData();
         initRecyclerView();
@@ -38,7 +38,7 @@ public class RankingActivity extends AppCompatActivity {
     }
 
     public void initData() {
-        gameList = dataBaseManager.getArrayList();
+        gameList = dataBaseManager.getArrayListGroup();
         gameAdapter = new GameAdapter(gameList, getApplicationContext());
         recyclerView.setAdapter(gameAdapter);
         gameAdapter.notifyDataSetChanged();

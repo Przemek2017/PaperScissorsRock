@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ciaston.przemek.psr.Game;
+import com.ciaston.przemek.psr.model.Game;
 import com.ciaston.przemek.psr.R;
 
 import java.util.List;
@@ -28,13 +28,15 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyGameHolder> 
 
     @Override
     public MyGameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_list_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ranking_item_row, parent, false);
         return new MyGameHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyGameHolder holder, int position) {
         Game game = gameList.get(position);
+
+        holder.position.setText(String.valueOf(position + 1) + ". ");
         holder.player.setText(game.getPlayer());
         holder.win.setText(String.valueOf(game.getWin()));
         holder.loose.setText(String.valueOf(game.getLoose()));
@@ -46,13 +48,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyGameHolder> 
     }
 
     public class MyGameHolder extends RecyclerView.ViewHolder {
-        public TextView player, win, loose;
+        public TextView position, player, win, loose;
         public View view;
 
         public MyGameHolder(View itemView) {
             super(itemView);
             view = itemView;
 
+            position = (TextView) view.findViewById(R.id.position);
             player = (TextView) view.findViewById(R.id.player);
             win = (TextView) view.findViewById(R.id.win);
             loose = (TextView) view.findViewById(R.id.loose);

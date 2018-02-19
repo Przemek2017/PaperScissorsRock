@@ -12,6 +12,10 @@
     <color name="playerColor">#399A63</color>
     <color name="layoutColor">#A75090</color>
     <color name="drawColor">#B1AA38</color>
+    <color name="stop">#faf8f2</color>
+    <color name="start">#f5f4e4</color>
+    <color name="light_gray">#9c9c9a</color>
+    <color name="white">#FFFFFF</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

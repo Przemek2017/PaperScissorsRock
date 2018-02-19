@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
+        jar="C:\Users\Przemek\PSR_1\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b3a60038b244e00e2ebdad3af7fd7732a4cd8e70">
+        <dex dex="C:\Users\Przemek\PSR_1\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_b8a40711b16478501351877355df775a8c14b8bd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Przemek\PSR_1\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="C:\Users\Przemek\PSR_1\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_cf740aab34bc4a9034a9eeb44c807cbe4d102a9b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Przemek\PSR_1\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="d02ee8065dbddc28b4e6b1199b4ad8d60abf0925">
-        <dex dex="C:\Users\Przemek\PSR_1\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_b8a40711b16478501351877355df775a8c14b8bd\classes.dex" />
     </item>
 
 </items>

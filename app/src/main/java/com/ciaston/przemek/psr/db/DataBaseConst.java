@@ -6,7 +6,7 @@ package com.ciaston.przemek.psr.db;
 
 public class DataBaseConst {
 
-    static final int VERSION = 4;
+    static final int VERSION = 5;
 
     static final String DB_NAME = "psr.db";
     public static final String USER_TABLE = "score";

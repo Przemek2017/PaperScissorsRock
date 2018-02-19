@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PSR</string>
+    <string name="yes">Yes</string>
+    <string name="ok">Ok</string>
+    <string name="exit">Exit</string>
+    <string name="ranking">Ranking</string>
+    <string name="game_over">Game over</string>
+    <string name="undo">Undo</string>
 </resources>
