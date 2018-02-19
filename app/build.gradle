@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.ciaston.przemek.psr"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -35,6 +35,7 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'de.codecrafters.tableview:tableview:2.2.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

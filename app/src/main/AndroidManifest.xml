@@ -12,6 +12,10 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".PaperScissorsRockActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PaperScissorsRockActivity"
+            android:name=".RankingActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>

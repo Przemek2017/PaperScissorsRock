@@ -1,12 +1,17 @@
 package com.ciaston.przemek.psr;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,25 +19,42 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ciaston.przemek.psr.db.DataBaseManager;
+
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PaperScissorsRockActivity extends AppCompatActivity {
-    @BindView(R.id.tv_computerScore) TextView tv_computerScore;
-    @BindView(R.id.tv_playerScore) TextView tv_playerScore;
-    @BindView(R.id.tv_draw) TextView tv_draw;
+    @BindView(R.id.tv_computerScore)
+    TextView tv_computerScore;
+    @BindView(R.id.tv_playerScore)
+    TextView tv_playerScore;
+    @BindView(R.id.tv_draw)
+    TextView tv_draw;
 
-    @BindView(R.id.paperButton) Button paper;
-    @BindView(R.id.scissorsButton) Button scissors;
-    @BindView(R.id.rockButton) Button rock;
+    @BindView(R.id.paperButton)
+    Button paper;
+    @BindView(R.id.scissorsButton)
+    Button scissors;
+    @BindView(R.id.rockButton)
+    Button rock;
 
-    @BindView(R.id.iv_playerChoice) ImageView iv_playerChoice;
-    @BindView(R.id.iv_computerChoice) ImageView iv_computerChoice;
-    @BindView(R.id.relativeLayout) RelativeLayout relativeLayout;
+    @BindView(R.id.iv_playerChoice)
+    ImageView iv_playerChoice;
+    @BindView(R.id.iv_computerChoice)
+    ImageView iv_computerChoice;
+    @BindView(R.id.relativeLayout)
+    RelativeLayout relativeLayout;
 
-    @BindView(R.id.textView4) TextView textView;
+    @BindView(R.id.textView4)
+    TextView textView;
+    private ArrayAdapter<String> arrayAdapter;
+    private String[] playerArray;
+    private List<String> playerList;
+    DataBaseManager dataBaseManager;
 
     int playerScore, computerScore, draw = 0;
     boolean undo = false;
@@ -46,6 +68,12 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paper_scissors_rock);
         ButterKnife.bind(this);
+        dataBaseManager = new DataBaseManager(this);
+        //autoCompletePrompt();
+        //dbAdapter.insertRandomGame();
+
+        // Random backgorund
+        //MyMethod.randomBackground(relativeLayout);
 
 //        if(savedInstanceState != null){
 //            tv_draw.setText(savedInstanceState.getString(DRAW_P));
@@ -53,7 +81,6 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
 //            tv_playerScore.setText(savedInstanceState.getString(HUMAN_P));
 //        }
 
-//        randomBackground();
 
         paper.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,25 +118,43 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         });
     }
 
+//    private void autoCompletePrompt() {
+//        playerList = dataBaseManager.getPlayers();
+//        playerArray = new String[playerList.size()];
+//        for (int i = 0; i < playerArray.length; i++){
+//            playerArray[i] = playerList.get(i);
+//        }
+//
+//        arrayAdapter = new ArrayAdapter<>(PaperScissorsRockActivity.this,
+//                android.R.layout.simple_spinner_dropdown_item, playerArray);
+//        autoCompleteTextView.setAdapter(arrayAdapter);
+//        autoCompleteTextView.setThreshold(1);
+//    }
+
+
     private void setPlayerName() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.custom_dialog, null );
+        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextView);
+        playerList = dataBaseManager.getPlayers();
+        playerArray = new String[playerList.size()];
+        for (int i = 0; i < playerArray.length; i++){
+            playerArray[i] = playerList.get(i);
+        }
 
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setLayoutParams(layoutParams);
+        arrayAdapter = new ArrayAdapter<>(PaperScissorsRockActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, playerArray);
+        autoCompleteTextView.setAdapter(arrayAdapter);
+        autoCompleteTextView.setThreshold(1);
+        //editText.setHint("What is your name?");
 
-        final EditText editText = new EditText(this);
-        editText.setHint("What is your name?");
-        editText.setLayoutParams(layoutParams);
-
-        linearLayout.addView(editText);
-        alertDialog.setView(linearLayout);
+        alertDialog.setView(view);
+        alertDialog.setCancelable(false);
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                textView.setText(editText.getText().toString());
+                textView.setText(autoCompleteTextView.getText().toString());
             }
         });
         alertDialog.setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
@@ -121,18 +166,43 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    private void insertDate() {
+        String nick = textView.getText().toString();
+        int mScore = Integer.parseInt(tv_playerScore.getText().toString());
+        int aScore = Integer.parseInt(tv_computerScore.getText().toString());
+        int mWin = mScore > aScore ? 1 : 0;
+        int aWin = mScore < aScore ? 1 : 0;
+
+        Game game = new Game();
+        game.setPlayer(nick);
+        game.setWin(mWin);
+        game.setLoose(aWin);
+
+        boolean res = dataBaseManager.insertData(game);
+        if (res) {
+            MyMethod.showToast(getApplicationContext(), "Success! " + mScore + " - " + aScore);
+        }
+    }
+
     private void scores() {
         tv_computerScore.setText(Integer.toString(computerScore));
         tv_playerScore.setText(Integer.toString(playerScore));
         tv_draw.setText("Draw: " + Integer.toString(draw));
     }
 
-    private void showWinner() {
+    private boolean gameOver() {
         if (playerScore == 5 || computerScore == 5) {
-            if (playerScore > computerScore) {
+            insertDate();
+            return true;
+        }
+        return false;
+    }
 
+    private void showWinner() {
+        if (gameOver()) {
+            if (playerScore > computerScore) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(PaperScissorsRockActivity.this);
-                alertDialog.setMessage("You WIN " + playerScore + "-" + computerScore +"! Rematch ?")
+                alertDialog.setMessage("You WIN " + playerScore + "-" + computerScore + "! Rematch ?")
                         .setTitle("Game over")
                         .setCancelable(false)
                         .setIcon(R.drawable.psr_icon)
@@ -143,15 +213,25 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                clearView();
                                 PaperScissorsRockActivity.this.finish();
                             }
+                        })
+                        .setNeutralButton("Show table", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                clearView();
+                                IntentToListView();
+                                dialog.dismiss();
+                            }
+
                         });
                 AlertDialog alert = alertDialog.create();
                 alert.getWindow().setBackgroundDrawableResource(R.color.dialogWin);
                 alert.show();
             } else {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(PaperScissorsRockActivity.this);
-                alertDialog.setMessage("Android WIN " + computerScore + "-" + playerScore +"! Rematch ?")
+                alertDialog.setMessage("Android WIN " + computerScore + "-" + playerScore + "! Rematch ?")
                         .setTitle("Game over")
                         .setIcon(R.drawable.psr_icon)
                         .setCancelable(false)
@@ -162,7 +242,16 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                clearView();
                                 PaperScissorsRockActivity.this.finish();
+                            }
+                        })
+                        .setNeutralButton("Show table", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                clearView();
+                                IntentToListView();
+                                dialog.dismiss();
                             }
                         });
                 AlertDialog alert = alertDialog.create();
@@ -182,102 +271,84 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
         undo = false;
     }
 
-    private String game(String playerChoise){
+    private String game(String playerChoise) {
         String computerChoise = "";
         String result;
         Random random = new Random();
         int computerRandChoise = random.nextInt(3) + 1;
-        if (computerRandChoise == 1){
+        if (computerRandChoise == 1) {
             computerChoise = "paper";
-        } else if (computerRandChoise == 2){
+        } else if (computerRandChoise == 2) {
             computerChoise = "scissors";
-        } else if (computerRandChoise == 3){
+        } else if (computerRandChoise == 3) {
             computerChoise = "rock";
         }
 
-        if (computerChoise == "paper"){
+        if (computerChoise == "paper") {
             iv_computerChoice.setImageResource(R.drawable.paper);
-        } else if (computerChoise == "scissors"){
+        } else if (computerChoise == "scissors") {
             iv_computerChoice.setImageResource(R.drawable.scissors);
-        } else if (computerChoise == "rock"){
+        } else if (computerChoise == "rock") {
             iv_computerChoice.setImageResource(R.drawable.rock);
         }
 
-        if (computerChoise == playerChoise){
+        if (computerChoise == playerChoise) {
             draw++;
             result = "Draw... Nobady won";
-            showSnackbar(result, Color.rgb(0, 0, 0), DRAW );
+            showSnackbar(result, Color.rgb(0, 0, 0), DRAW);
             return "Draw... Nobady won";
-        } else if (computerChoise == "scissors" && playerChoise == "paper"){
+        } else if (computerChoise == "scissors" && playerChoise == "paper") {
             computerScore++;
             result = "Scissors cut paper... computer win!";
-            showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN );
+            showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN);
             return "";
-        } else if (computerChoise == "paper" && playerChoise == "rock"){
+        } else if (computerChoise == "paper" && playerChoise == "rock") {
             computerScore++;
             result = "Paper covers the rock... computer win!";
-            showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN );
+            showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN);
             return "";
-        } else if (computerChoise == "rock" && playerChoise == "scissors"){
+        } else if (computerChoise == "rock" && playerChoise == "scissors") {
             computerScore++;
             result = "Rock destroys the scissors... computer win!";
-            showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN );
+            showSnackbar(result, Color.rgb(153, 0, 0), COMPUTER_WIN);
             return "";
-        } else if (computerChoise == "paper" && playerChoise == "scissors"){
+        } else if (computerChoise == "paper" && playerChoise == "scissors") {
             playerScore++;
             result = "Scissors cut paper... You win!";
-            showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN );
+            showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN);
             return "";
-        } else if (computerChoise == "rock" && playerChoise == "paper"){
+        } else if (computerChoise == "rock" && playerChoise == "paper") {
             playerScore++;
             result = "Paper covers the rock... You win!";
-            showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN );
+            showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN);
             return "";
-        } else if (computerChoise == "scissors" && playerChoise == "rock"){
+        } else if (computerChoise == "scissors" && playerChoise == "rock") {
             playerScore++;
             result = "Rock destroys the scissors... You win!";
-            showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN );
+            showSnackbar(result, Color.rgb(0, 153, 51), PLAYER_WIN);
             return "";
         }
         return "";
     }
 
-    public void randomBackground(){
-        int[] bArray = new int[]{
-                R.drawable.bgame1,
-                R.drawable.bgame2,
-                R.drawable.bgame3,
-                R.drawable.bgame4,
-                R.drawable.bgame5,
-                R.drawable.bgame6,
-                R.drawable.bgame7
-        };
 
-        int arrLen = bArray.length;
-        Random random = new Random();
-        int r = random.nextInt(arrLen);
-        relativeLayout.setBackgroundResource(bArray[r]);
-    }
-
-
-    public void showSnackbar(String message, int color, final int player){
+    public void showSnackbar(String message, int color, final int player) {
         Snackbar snackbar = Snackbar.make(relativeLayout, message, Snackbar.LENGTH_LONG);
         View view = snackbar.getView();
         view.setBackgroundColor(color);
-        if(undo == false){
+        if (undo == false) {
             snackbar.setActionTextColor(Color.WHITE);
             snackbar.setAction("Undo", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     undo = true;
-                    if(player == DRAW){
-                        MyMethod.ShowSnackbar(relativeLayout, "Straciłeś/aś jedyną możliwość cofnięcia punktu");
-                    } else
-                        if (player == COMPUTER_WIN){
-                        MyMethod.ShowSnackbar(relativeLayout, "Odjęto punkt Androidowi");
+                    if (player == DRAW) {
+                        MyMethod.showSnackbar(relativeLayout, "Straciłeś/aś jedyną możliwość cofnięcia punktu");
+                    } else if (player == COMPUTER_WIN) {
+                        MyMethod.showSnackbar(relativeLayout, "Odjęto punkt Androidowi");
                         computerScore--;
-                    } else if (player == PLAYER_WIN){
-                        MyMethod.ShowSnackbar(relativeLayout, "Odjęto Twój punkt");
+                    } else if (player == PLAYER_WIN) {
+                        MyMethod.showSnackbar(relativeLayout, "Odjęto Twój punkt");
                         playerScore--;
                     }
                     scores();
@@ -285,6 +356,11 @@ public class PaperScissorsRockActivity extends AppCompatActivity {
             });
         }
         snackbar.show();
+    }
+
+    private void IntentToListView() {
+        Intent intent = new Intent(PaperScissorsRockActivity.this, RankingActivity.class);
+        startActivity(intent);
     }
 
 //    static final String DRAW_P = "draw_p";

@@ -1,4 +1,4 @@
-package com.ciaston.przemek.psr.db;
+package com.ciaston.przemek.psr;
 
 /**
  * Created by Przemek on 2018-01-09.
@@ -6,51 +6,49 @@ package com.ciaston.przemek.psr.db;
 
 public class Game {
 
-    private String nickName;
-    private int playerScore;
-    private int androidScore;
-    private int playerWin;
-    private int androidWin;
+    private int id;
+    private String player;
+    private int win;
+    private int loose;
 
-    public Game() {}
-
-    public String getNickName() {
-        return nickName;
+    public Game(String player, int win, int loose) {
+        this.player = player;
+        this.win = win;
+        this.loose = loose;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public Game() {
     }
 
-    public int getPlayerScore() {
-        return playerScore;
+    public int getId() {
+        return id;
     }
 
-    public void setPlayerScore(int playerScore) {
-        this.playerScore = playerScore;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getAndroidScore() {
-        return androidScore;
+    public String getPlayer() {
+        return player;
     }
 
-    public void setAndroidScore(int androidScore) {
-        this.androidScore = androidScore;
+    public void setPlayer(String player) {
+        this.player = player;
     }
 
-    public int getPlayerWin() {
-        return playerWin;
+    public int getWin() {
+        return win;
     }
 
-    public void setPlayerWin(int playerWin) {
-        this.playerWin = playerWin;
+    public void setWin(int win) {
+        this.win = win;
     }
 
-    public int getAndroidWin() {
-        return androidWin;
+    public int getLoose() {
+        return loose;
     }
 
-    public void setAndroidWin(int androidWin) {
-        this.androidWin = androidWin;
+    public void setLoose(int loose) {
+        this.loose = loose;
     }
 }
