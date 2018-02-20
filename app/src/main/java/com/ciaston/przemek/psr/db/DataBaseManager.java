@@ -48,11 +48,20 @@ public class DataBaseManager extends SQLiteOpenHelper {
         }
     }
 
+    public boolean deleteData(String player) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        String where = DataBaseConst.PLAYER + "=?";
+        int result = sqLiteDatabase.delete(DataBaseConst.USER_TABLE, where, new String[]{player});
+        if (result > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public List<String> getPlayers() {
         String query = "SELECT DISTINCT " + DataBaseConst.PLAYER + " FROM " + DataBaseConst.USER_TABLE;
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(query, null);
-        //Game game;
 
         List<String> playerList = new ArrayList<>();
         if (cursor != null) {
