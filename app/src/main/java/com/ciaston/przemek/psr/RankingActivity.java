@@ -36,10 +36,10 @@ public class RankingActivity extends AppCompatActivity {
         initData();
         initRecyclerView();
 
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|0) {
+        ItemTouchHelper.SimpleCallback simpleCallback =
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|0) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                gameAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 return false;
             }
 
@@ -54,7 +54,6 @@ public class RankingActivity extends AppCompatActivity {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
     }
 
     public void initData() {

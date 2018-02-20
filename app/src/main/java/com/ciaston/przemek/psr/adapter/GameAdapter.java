@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Przemek on 2018-02-18.
  */
 
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyGameHolder> implements View.OnTouchListener{
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyGameHolder> {
 
     private List<Game> gameList;
     private Context context;
@@ -50,11 +50,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyGameHolder> 
         }
     }
 
-    public void onItemMove(int fromPosition, int toPosition) {
-        Game position = gameList.remove(fromPosition);
-        gameList.add(toPosition > fromPosition ? toPosition - 1 : toPosition, position);
-        notifyItemMoved(fromPosition, toPosition);
-    }
+//    public void onItemMove(int fromPosition, int toPosition) {
+//        Game position = gameList.remove(fromPosition);
+//        gameList.add(toPosition > fromPosition ? toPosition - 1 : toPosition, position);
+//        notifyItemMoved(fromPosition, toPosition);
+//    }
 
     @Override
     public int getItemCount() {
@@ -70,11 +70,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyGameHolder> 
     public Game getData(int position){
         Game game = gameList.get(position);
         return game;
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        return false;
     }
 
     public class MyGameHolder extends RecyclerView.ViewHolder {
